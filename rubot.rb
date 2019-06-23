@@ -27,7 +27,7 @@ class Rubot
     end
   end
 
-  def left
+  def turn_left
     case @facing
     when "NORTH"
       turn_west
@@ -40,7 +40,7 @@ class Rubot
     end
   end
 
-  def right
+  def turn_right
     case @facing
     when "NORTH"
       turn_east
@@ -63,19 +63,19 @@ class Rubot
     @grid.within_grid?(x, y)
   end
 
-  def move_north
+  def move_east
     @x += 1 if within_grid?(@x + 1, @y)
   end
 
-  def move_south
+  def move_west
     @x -= 1 if within_grid?(@x - 1, @y)
   end
 
-  def move_east
+  def move_north
     @y += 1 if within_grid?(@x, @y + 1)
   end
 
-  def move_west
+  def move_south
     @y -= 1 if within_grid?(@x, @y - 1)
   end
 
@@ -94,5 +94,4 @@ class Rubot
   def turn_north
     @facing = "NORTH"
   end
-
 end

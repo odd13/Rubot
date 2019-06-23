@@ -42,7 +42,7 @@ describe Rubot do
         it 'increase x' do
           subject.place(x, y, facing)
           subject.move
-          expect(subject.x).to eql( x - 1 )
+          expect(subject.y).to eql( y - 1 )
         end
       end
 
@@ -52,7 +52,7 @@ describe Rubot do
         it 'decrease x' do
           subject.place(x, y, facing)
           subject.move
-          expect(subject.x).to eql( x + 1 )
+          expect(subject.y).to eql( y + 1 )
         end
       end
 
@@ -62,7 +62,7 @@ describe Rubot do
         it 'decrease x' do
           subject.place(x, y, facing)
           subject.move
-          expect(subject.y).to eql( y + 1 )
+          expect(subject.x).to eql( x + 1 )
         end
       end
 
@@ -72,7 +72,7 @@ describe Rubot do
         it 'decrease x' do
           subject.place(x, y, facing)
           subject.move
-          expect(subject.y).to eql( y - 1 )
+          expect(subject.x).to eql( x - 1 )
         end
       end
     end
@@ -92,13 +92,13 @@ describe Rubot do
     end
   end
 
-  describe '#left' do
+  describe '#turn_left' do
     context 'when facing NORTH' do
       let(:facing) { "NORTH" }
 
       it 'changes to the WEST' do
         subject.place(x, y, facing)
-        subject.left
+        subject.turn_left
         expect(subject.facing).to eql("WEST")
       end
     end
@@ -108,7 +108,7 @@ describe Rubot do
 
       it 'changes to the SOUTH' do
         subject.place(x, y, facing)
-        subject.left
+        subject.turn_left
         expect(subject.facing).to eql("SOUTH")
       end
     end
@@ -117,7 +117,7 @@ describe Rubot do
       let(:facing) { "SOUTH" }
       it 'changes to the east' do
         subject.place(x, y, facing)
-        subject.left
+        subject.turn_left
         expect(subject.facing).to eql("EAST")
       end
     end
@@ -126,26 +126,26 @@ describe Rubot do
       let(:facing) { "EAST" }
       it 'changes to the north' do
         subject.place(x, y, facing)
-        subject.left
+        subject.turn_left
         expect(subject.facing).to eql("NORTH")
       end
     end
 
     it 'does not move' do
         subject.place(x, y, facing)
-        subject.left
+        subject.turn_left
         expect(subject.x).to eql(x)
         expect(subject.y).to eql(y)
     end
   end
 
-  describe '#right' do
+  describe '#turn_right' do
     context 'when facing NORTH' do
       let(:facing) { "NORTH" }
 
       it 'changes to the east' do
         subject.place(x, y, facing)
-        subject.right
+        subject.turn_right
         expect(subject.facing).to eql("EAST")
       end
     end
@@ -155,7 +155,7 @@ describe Rubot do
 
       it 'changes to the SOUTH' do
         subject.place(x, y, facing)
-        subject.right
+        subject.turn_right
         expect(subject.facing).to eql("SOUTH")
       end
     end
@@ -165,7 +165,7 @@ describe Rubot do
 
       it 'changes to the east' do
         subject.place(x, y, facing)
-        subject.right
+        subject.turn_right
         expect(subject.facing).to eql("WEST")
       end
     end
@@ -175,14 +175,14 @@ describe Rubot do
 
       it 'changes to the NORTH' do
         subject.place(x, y, facing)
-        subject.right
+        subject.turn_right
         expect(subject.facing).to eql("NORTH")
       end
     end
 
     it 'does not move' do
       subject.place(x, y, facing)
-      subject.left
+      subject.turn_left
       expect(subject.x).to eql(x)
       expect(subject.y).to eql(y)
     end
