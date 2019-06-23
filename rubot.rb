@@ -11,50 +11,50 @@ class Rubot
     return "Outside of grid limitations" unless within_grid?(x, y)
     @x = x
     @y = y
-    @facing = facing
+    @facing = facing.upcase
   end
 
   def move
     case @facing
     when "NORTH"
-      @x += 1 if within_grid?(@x + 1, @y)
+      move_north
     when "SOUTH"
-      @x -= 1 if within_grid?(@x - 1, @y)
+      move_south
     when "EAST"
-      @y += 1 if within_grid?(@x, @y + 1)
+      move_east
     when "WEST"
-      @y -= 1 if within_grid?(@x, @y - 1)
+      move_west
     end
   end
 
   def left
     case @facing
     when "NORTH"
-      @facing = "WEST"
+      turn_west
     when "SOUTH"
-      @facing = "EAST"
+      turn_east
     when "EAST"
-      @facing = "NORTH"
+      turn_north
     when "WEST"
-      @facing = "SOUTH"
+      turn_south
     end
   end
 
   def right
     case @facing
     when "NORTH"
-      @facing = "EAST"
+      turn_east
     when "SOUTH"
-      @facing = "WEST"
+      turn_west 
     when "EAST"
-      @facing = "SOUTH"
+      turn_south
     when "WEST"
-      @facing = "NORTH"
+      turn_north
     end
   end
 
   def report
-    "#{@x},#{@y},#{@facing.upcase}"
+    "#{@x},#{@y},#{@facing}"
   end
 
   private
@@ -62,4 +62,37 @@ class Rubot
   def within_grid?(x, y)
     @grid.within_grid?(x, y)
   end
+
+  def move_north
+    @x += 1 if within_grid?(@x + 1, @y)
+  end
+
+  def move_south
+    @x -= 1 if within_grid?(@x - 1, @y)
+  end
+
+  def move_east
+    @y += 1 if within_grid?(@x, @y + 1)
+  end
+
+  def move_west
+    @y -= 1 if within_grid?(@x, @y - 1)
+  end
+
+  def turn_east
+    @facing = "EAST"
+  end
+
+  def turn_west
+    @facing = "WEST"
+  end
+
+  def turn_south
+    @facing = "SOUTH"
+  end
+
+  def turn_north
+    @facing = "NORTH"
+  end
+
 end
