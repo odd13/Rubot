@@ -1,10 +1,11 @@
 class Grid
-  def initialize()
-    @x_max = 5
-    @y_max = 5
+  def initialize(x_max = 5, y_max = 5)
+    @x_max = x_max
+    @y_max = y_max
   end
 
   def within_grid?(x ,y)
+    (winthin_x?(x) && winthin_y?(y))
   end
 
   private

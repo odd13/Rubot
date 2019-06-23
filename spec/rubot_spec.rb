@@ -1,11 +1,10 @@
-
 require '../rubot'
 
 describe Rubot do
   let(:subject) { described_class.new() }
   let(:x) { 1 }
   let(:y) { 3 }
-  let(:facing) { "north" }
+  let(:facing) { "NORTH" }
   let(:grid) { instance_double(Grid) }
 
   before do
@@ -77,6 +76,20 @@ describe Rubot do
         end
       end
     end
+
+    context 'when not within the grid limits' do
+      before do
+        subject.place(x, y, facing)
+      end
+
+      it 'will not move' do
+        allow(grid).to receive(:within_grid?).and_return(false)
+        subject.move
+        
+        expect(subject.y).to eql( y )
+        expect(subject.x).to eql( x )
+      end
+    end
   end
 
   describe '#left' do
@@ -89,6 +102,7 @@ describe Rubot do
         expect(subject.facing).to eql("WEST")
       end
     end
+
     context 'when facing WEST' do
       let(:facing) { "WEST" }
 
@@ -98,6 +112,7 @@ describe Rubot do
         expect(subject.facing).to eql("SOUTH")
       end
     end
+
     context 'when facing SOUTH' do
       let(:facing) { "SOUTH" }
       it 'changes to the east' do
@@ -106,6 +121,7 @@ describe Rubot do
         expect(subject.facing).to eql("EAST")
       end
     end
+
     context 'when facing EAST' do
       let(:facing) { "EAST" }
       it 'changes to the north' do
@@ -122,6 +138,7 @@ describe Rubot do
         expect(subject.y).to eql(y)
     end
   end
+
   describe '#right' do
     context 'when facing NORTH' do
       let(:facing) { "NORTH" }
@@ -142,6 +159,7 @@ describe Rubot do
         expect(subject.facing).to eql("SOUTH")
       end
     end
+
     context 'when facing SOUTH' do
       let(:facing) { "SOUTH" }
 
@@ -151,6 +169,7 @@ describe Rubot do
         expect(subject.facing).to eql("WEST")
       end
     end
+
     context 'when facing WEST' do
       let(:facing) { "WEST" }
 
@@ -168,6 +187,7 @@ describe Rubot do
       expect(subject.y).to eql(y)
     end
   end
+
   describe '#report' do
     it 'will announce the X,Y and F' do
       subject.place(x, y, facing)

@@ -17,13 +17,13 @@ class Rubot
   def move
     case @facing
     when "NORTH"
-      @x += 1
+      @x += 1 if within_grid?(@x + 1, @y)
     when "SOUTH"
-      @x -= 1
+      @x -= 1 if within_grid?(@x - 1, @y)
     when "EAST"
-      @y += 1
+      @y += 1 if within_grid?(@x, @y + 1)
     when "WEST"
-      @y -= 1
+      @y -= 1 if within_grid?(@x, @y - 1)
     end
   end
 

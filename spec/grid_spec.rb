@@ -1,27 +1,45 @@
 require '../grid'
 
 describe Grid do
-  describe '#place' do
+  let(:subject) { described_class.new(5, 5) }
+  let(:x) { 3 }
+  let(:y) { 2 }
 
-    context 'when given the correct command' do
-      let(:subject) { described_class.new() }
+  describe '#within_grid' do
+    context 'when within the grid' do
 
-      it 'sets the starting possition' do
-        x = 1
-        y = 3
-        facing = "north"
+      it 'returns true' do
+        expect(subject.within_grid?(x, y)).to eql(true)
+      end
+    end
 
-        subject.place(x, y, facing)
+    context 'when not within the grid' do
+      context 'when x is within the grid and y is not' do
+        let(:x) { 3 }
+        let(:y) { 6 }
 
-        expect(subject.x).to eql(x)
-        expect(subject.y).to eql(y)
-        expect(subject.facing).to eql(facing)
+        it 'returns false' do
+            expect(subject.within_grid?(x, y)).to eql(false)
+        end
       end
 
-      it 'sets the initial possition'
-    end
-    context 'when given the incorrect command' do
-      it 'returns failure'
+      context 'when y is within the grid and x is not' do
+        let(:x) { 7 }
+        let(:y) { 2 }
+
+        it 'returns false' do
+            expect(subject.within_grid?(x, y)).to eql(false)
+        end
+      end
+
+      context 'when none are withing the grid' do
+        let(:x) { 7 }
+        let(:y) { 6 }
+
+        it 'returns false' do
+            expect(subject.within_grid?(x, y)).to eql(false)
+        end
+      end
     end
   end
 end
